@@ -1,12 +1,22 @@
 """
-This script needs to remain in the same directory as the UNGDC_1946-20* folder.
-For example,
+# UN General Debates Data Transformation Script
+
+This script transforms the UN General Debate Corpus,
+which includes transcripts of General Debate statements
+from 1946 to 2022, into a pandas DataFrame.
+
+## Directory Structure
+
+The script should be located in the same directory as the `UNGDC_1946-20*` folder.
+The expected directory structure is:
+
     UN General Debates
     |
     |-- UNGDC_1946-20* -> folder containing the UN General Debates Corpus
     |-- README.txt
     |-- Speakers_by_session.csv
     |-- transform_UNGDC.py -> this script
+
 
 See README.txt for more information about the data; original authors, license, etc.
 Source: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/0TJX8Y
@@ -17,7 +27,7 @@ import glob
 import pandas as pd
 
 
-def data(create_csv=False):
+def get_data(create_csv=False):
     """
     This function creates a pandas DataFrame from the UN General Debate Corpus,
     which includes transcripts of General Debate statements from 1946 to 2022,
@@ -27,8 +37,13 @@ def data(create_csv=False):
     with subfolders for each UN General Debate session/year containing the text files.
     Each text file's name is in the format 'country_session_year.txt'.
 
-    The function reads each text file, extracts the country, session, and year from the filename,
-    and stores these along with the file's content in a DataFrame.
+    The function reads each text file, extracts the country, session, and year from the
+    filename, and stores these along with the file's content in a DataFrame.
+
+     Args:
+        create_csv (bool, optional): If True, the function will output a CSV file,
+        rather than returning a Pandas DataFrame.
+        Defaults to False.
 
     Returns:
         pd.DataFrame: A DataFrame containing the country, session, year, and
@@ -67,7 +82,7 @@ def data(create_csv=False):
 
 
 if __name__ == "__main__":
-    data = data()
+    data = get_data()
     print("\nHEAD\n", data.head())
     print("\nSAMPLE\n", data.sample(5))
     print("\nTAIL\n", data.tail())
